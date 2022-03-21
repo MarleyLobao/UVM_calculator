@@ -18,32 +18,32 @@ module calculator (
 	output signed logic [15:0] out
 );
 
-reg        [1:0] 	reg_function_in; 
-reg signed [7:0] 	reg_dat_a_in; 
-reg signed [7:0] 	reg_dat_b_in; 
+reg        [1:0]	reg_function_in; 
+reg signed [7:0]	reg_dat_a_in; 
+reg signed [7:0]	reg_dat_b_in; 
 reg signed [15:0]	reg_out; 
 
 always @(posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
-		out 					  <= 16'b0;
-		reg_dat_a_in 	  <= 8'b0;
-		reg_dat_b_in 	  <= 8'b0;
+		out							<= 16'b0;
+		reg_dat_a_in		<= 8'b0;
+		reg_dat_b_in		<= 8'b0;
 		reg_function_in <= 2'b0;
 	end
 	else begin
-		out 						<= reg_out;
-		reg_dat_a_in 		<= dat_a_in;
-		reg_dat_b_in 		<= dat_b_in;
+		out							<= reg_out;
+		reg_dat_a_in		<= dat_a_in;
+		reg_dat_b_in		<= dat_b_in;
 		reg_function_in <= function_in;
 	end
 end
 
 always@(*)
   case (reg_function_in)
-      2'b00:	reg_out 	<= reg_dat_a_in + reg_dat_b_in; 
-      2'b01:	reg_out 	<= reg_dat_a_in - reg_dat_b_in;
-      2'b10:	reg_out 	<= reg_dat_a_in * reg_dat_b_in;
-      2'b11:	reg_out 	<= reg_dat_a_in / reg_dat_b_in;
+      2'b00:	reg_out		<= reg_dat_a_in + reg_dat_b_in; 
+      2'b01:	reg_out		<= reg_dat_a_in - reg_dat_b_in;
+      2'b10:	reg_out		<= reg_dat_a_in * reg_dat_b_in;
+      2'b11:	reg_out		<= reg_dat_a_in / reg_dat_b_in;
   endcase
 
 endmodule
