@@ -7,8 +7,10 @@ The following image, depicts the block interface, followed by its ports descript
 
 ![Block Diagram](figs/calculator_bd.png)
 
+
+
 | Portname        | Direction | Note |
-| --------        | --------- | -----
+|:--------       |:--------- |:-----
 | clk             | input     | clock
 |rst_n            | input     | async, active-low
 |function_in[1:0] | input     | opcodes are: <br /> 00 = SUM A+B <br /> 01 = SUB A-B <br /> 10 MUL = A\*B <br /> 11 = DIV A/B
