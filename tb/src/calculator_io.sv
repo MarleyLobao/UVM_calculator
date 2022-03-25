@@ -7,7 +7,7 @@ interface calculator_io(
   input clk, rst_n
 );
   logic [7:0] dat_a_in;
-  logic [7:0] operand_B;
+  logic [7:0] dat_b_in;
   logic [1:0] function_in;
   logic [15:0] out;
 
