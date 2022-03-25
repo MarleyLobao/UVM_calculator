@@ -8,8 +8,8 @@ interface calculator_io(
 );
   logic [7:0] operand_A;
   logic [7:0] operand_B;
-  logic [7:0] op_code;
-  logic [7:0] result;
+  logic [1:0] op_code;
+  logic [15:0] result;
 
   modport dut(input operand_A,
               input operand_B,
