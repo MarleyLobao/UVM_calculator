@@ -4,16 +4,16 @@
 */
 
 class calculator_seq_item extends uvm_sequence_item;
-  rand bit [7:0] m_operand_A;
-  rand bit [7:0] m_operand_B;
-  rand bit [1:0] m_opcode;
-  rand bit [15:0] m_output;
+  rand bit [7:0] m_dat_a_in;
+  rand bit [7:0] m_dat_b_in;
+  rand bit [1:0] m_function_in;
+       bit [15:0] m_out;
 
   `uvm_object_utils_begin(computation)
-      `uvm_field_int(m_operand_A, UVM_ALL_ON|UVM_HEX)
-      `uvm_field_int(m_operand_B, UVM_ALL_ON|UVM_HEX)
-      `uvm_field_int(m_opcode, UVM_ALL_ON|UVM_HEX)
-      `uvm_field_int(m_output, UVM_ALL_ON|UVM_HEX)
+      `uvm_field_int(m_data_in_A, UVM_ALL_ON|UVM_HEX)
+      `uvm_field_int(m_data_in_B, UVM_ALL_ON|UVM_HEX)
+      `uvm_field_int(m_function_in, UVM_ALL_ON|UVM_HEX)
+      `uvm_field_int(m_out, UVM_ALL_ON|UVM_HEX)
   `uvm_object_utils_end
 
 endclass : computation
