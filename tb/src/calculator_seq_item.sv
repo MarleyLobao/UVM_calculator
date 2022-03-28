@@ -16,4 +16,4 @@ class calculator_seq_item extends uvm_sequence_item;
       `uvm_field_int(m_out, UVM_ALL_ON|UVM_HEX)
   `uvm_object_utils_end
 
-endclass : computation
+endclass : calculator_seq_item
