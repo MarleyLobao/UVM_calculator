@@ -10,8 +10,8 @@ class calculator_seq_item extends uvm_sequence_item;
        bit [15:0] m_out;
 
   `uvm_object_utils_begin(computation)
-      `uvm_field_int(m_data_in_A, UVM_ALL_ON|UVM_HEX)
-      `uvm_field_int(m_data_in_B, UVM_ALL_ON|UVM_HEX)
+      `uvm_field_int(m_dat_a_in, UVM_ALL_ON|UVM_HEX)
+      `uvm_field_int(m_dat_b_in, UVM_ALL_ON|UVM_HEX)
       `uvm_field_int(m_function_in, UVM_ALL_ON|UVM_HEX)
       `uvm_field_int(m_out, UVM_ALL_ON|UVM_HEX)
   `uvm_object_utils_end
