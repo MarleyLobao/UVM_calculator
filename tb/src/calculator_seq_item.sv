@@ -3,7 +3,7 @@
  Description: This files defines a basic sequence item 
 */
 
-class computation extends uvm_sequence_item;
+class calculator_seq_item extends uvm_sequence_item;
   rand bit [7:0] m_operand_A;
   rand bit [7:0] m_operand_B;
   rand bit [1:0] m_opcode;
