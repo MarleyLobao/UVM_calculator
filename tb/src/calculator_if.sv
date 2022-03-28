@@ -3,7 +3,7 @@ Author: Hugo G.
 Description: This file models a calculator RTL interface
 */
 
-interface calculator_io(
+interface calculator_if(
   input clk, rst_n
 );
   logic [7:0] dat_a_in;
