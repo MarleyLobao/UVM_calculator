@@ -1,30 +1,9 @@
-/*
-Author: Hugo G.
-Description: This file models a calculator RTL interface
-*/
-
-interface calculator_if(
-  input clk, rst_n
-);
-  logic [7:0] dat_a_in;
-  logic [7:0] dat_b_in;
-  logic [1:0] function_in;
-  logic [15:0] out;
-
-  modport dut(input dat_a_in,
-              input dat_b_in,
-              input function_in,
-              input clk,
-              input rst_n,
-              output out);
-
-  modport tb(output dat_a_in,
-              output dat_b_in,
-              output function_in,
-              input clk,
-              input rst_n,
-              input out);
-
-endinterface : calculator_io
-
-
+interface calculator_if(input clk, rst_n);
+    logic [1:0]  function_in;
+    logic [7:0]  dat_a_in;
+    logic [7:0]  dat_b_in;
+    logic [15:0] out;
+    
+    modport mst(input clk, rst_n, out, output dat_a_in, dat_b_in, function_in);
+    modport slv(input clk, rst_n, dat_a_in, dat_b_in, function_in, output out);
+endinterface
