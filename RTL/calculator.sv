@@ -12,10 +12,10 @@ Key notes:
 module calculator (
   input  logic clk,
   input  logic rst_n,
-  input         logic [1:0]  function_in,
-  input  signed logic [7:0]  dat_a_in,
-  input  signed logic [7:0]  dat_b_in,
-  output signed logic [15:0] out
+  input        logic  [1:0]  function_in,
+  input  logic signed [7:0]  dat_a_in,
+  input  logic signed [7:0]  dat_b_in,
+  output logic signed [15:0] out
 );
 
 reg        [1:0]  reg_function_in; 
