@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-extern "C" int calc(int data_a, int data_b, int func){
+extern "C" int calc(int a, int b, int func){
 
   switch(func){
     case 0:
