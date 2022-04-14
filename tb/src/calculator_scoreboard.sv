@@ -3,7 +3,7 @@ class calculator_scoreboard extends uvm_scoreboard;
 
     typedef uvm_in_order_class_comparator #(calculator_seq_item) comparator;
     
-    refmod rm;
+    calculator_refmod rm;
     comparator comp;
 
     uvm_analysis_export #(calculator_seq_item) scoreboard_port_in;

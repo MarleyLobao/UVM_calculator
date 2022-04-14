@@ -27,7 +27,7 @@ class calculator_monitor extends uvm_monitor;
     virtual task run_phase(uvm_phase phase);
         super.run_phase(phase);
         
-        wait(rst_n === 0);
+        wait(inter.rst_n === 0);
         
         @(posedge inter.rst_n);
         fork

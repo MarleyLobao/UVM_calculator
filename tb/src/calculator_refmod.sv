@@ -23,7 +23,7 @@ class calculator_refmod extends uvm_component;
         csi_out = calculator_seq_item::type_id::create("csi_out", this);
     endfunction: build_phase
 
-    virtual task void write(calculator_seq_item t);
+    virtual task write(calculator_seq_item t);
         csi_in.copy(t);
         -> start_calc;
     endtask
@@ -34,7 +34,7 @@ class calculator_refmod extends uvm_component;
         forever begin
             @(start_calc);
 
-            csi_out.out = calc(csi_in.data_a, csi_in.data_b, csi_in.func);
+            csi_out.out = calc(csi_in.dat_a_in, csi_in.dat_b_in, csi_in.function_in);
             
             out.write(csi_out);
         end

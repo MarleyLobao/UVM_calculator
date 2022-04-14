@@ -19,7 +19,7 @@ class calculator_driver extends uvm_driver #(calculator_seq_item);
 
     virtual task run_phase(uvm_phase phase);
         super.run_phase(phase);
-        wait(rst_n === 0);
+        wait(inter.rst_n === 0);
 
         forever begin
                         
