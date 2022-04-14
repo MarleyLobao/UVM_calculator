@@ -21,7 +21,7 @@ class calculator_test extends uvm_test;
     seq.start(envir.ag.sqr);
     phase.raise_objection(this);
 
-    repeat(CYCLES) @(env.agent.monitor.vif.clk);
+    repeat(CYCLES) @(envir.ag.mon.inter.clk);
 
     phase.drop_objection(this);
   endtask: run_phase

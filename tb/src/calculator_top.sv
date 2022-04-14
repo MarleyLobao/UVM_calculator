@@ -14,11 +14,11 @@ module calculator_top;
 
   always #10 clk = !clk;
 
-  calculator_if dut_if(.clk(clk), .rst(rst));
+  calculator_if dut_if(.clk(clk), .rst_n(rst));
   
   calculator my_calculator(
-              .clk_i(clk),
-              .rstn_i(rst),
+              .clk(clk),
+              .rst_n(rst),
               .function_in(dut_if.function_in),
               .dat_a_in(dut_if.dat_a_in),
               .dat_b_in(dut_if.dat_b_in),
