@@ -1,7 +1,7 @@
 class calculator_monitor extends uvm_monitor;
     `uvm_component_utils(calculator_monitor)
 
-    virtual calculator_if.mst inter;
+    virtual calculator_if inter;
     calculator_seq_item seq_item_in, seq_item_out;
 
     uvm_analysis_port #(calculator_seq_item) monitor_port_in;
@@ -18,7 +18,7 @@ class calculator_monitor extends uvm_monitor;
         seq_item_in = calculator_seq_item::type_id::create("seq_item_in",this);
         seq_item_out = calculator_seq_item::type_id::create("seq_item_out",this);
         
-        if(!uvm_config_db#(virtual calculator_if.mst)::get(this, "", "vif", inter)) begin
+        if(!uvm_config_db#(virtual calculator_if)::get(this, "", "vif", inter)) begin
             `uvm_fatal("NOVIF","The virtual connection wasn't successful!");
         end
 

@@ -1,7 +1,7 @@
 class calculator_driver extends uvm_driver #(calculator_seq_item);
     `uvm_component_utils(calculator_driver)
 
-    virtual calculator_if.mst inter;
+    virtual calculator_if inter;
     calculator_seq_item seq_item;
 
     function new(string name = "calculator_driver", uvm_component parent = null);
@@ -11,7 +11,7 @@ class calculator_driver extends uvm_driver #(calculator_seq_item);
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         
-        if(!uvm_config_db#(virtual calculator_if.mst)::get(this, "", "vif", inter)) begin
+        if(!uvm_config_db#(virtual calculator_if)::get(this, "", "vif", inter)) begin
             `uvm_fatal("NOVIF","The virtual connection wasn't successful!");
         end
         
@@ -24,6 +24,7 @@ class calculator_driver extends uvm_driver #(calculator_seq_item);
         forever begin
                         
             if (!inter.rst_n) begin
+                @(posedge inter.clk);
                 inter.dat_a_in <= 8'd0;
                 inter.dat_b_in <= 8'd0;
                 inter.function_in <= 2'd0;
