@@ -17,12 +17,14 @@ class calculator_test extends uvm_test;
     seq = calculator_sequence::type_id::create("seq", this);
   endfunction
  
-  task run_phase(uvm_phase phase);
-    seq.start(envir.ag.sqr);
+  task run_phase(uvm_phase phase);    
     phase.raise_objection(this);
 
-    repeat(CYCLES) @(envir.ag.mon.inter.clk);
-
+    fork
+      seq.start(envir.ag.sqr);
+      repeat(CYCLES) @(posedge envir.ag.drv.inter.clk);
+    join_any
+    
     phase.drop_objection(this);
   endtask: run_phase
 
