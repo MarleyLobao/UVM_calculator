@@ -1,0 +1,106 @@
+# SimVision Command Script (Thu Apr 14 17:04:40 -03 2022)
+#
+# Version 20.09.s010
+#
+# You can restore this configuration with:
+#
+#      xrun -64bit -uvm +incdir+../../RTL/ +incdir+../src ../src/calculator_pkg.sv ../src/calculator_if.sv ../../RTL/calculator.sv ../src/calculator_top.sv -sv_lib test.so +UVM_TESTNAME=calculator_test -input /mnt/hdd1tera/marley.lobao/Documents/capacitacao_verificacao/UVM_calculator/tb/src/waves.tcl
+#
+
+
+#
+# Preferences
+#
+preferences set plugin-enable-svdatabrowser-new 1
+preferences set plugin-enable-groupscope 0
+preferences set plugin-enable-interleaveandcompare 0
+preferences set plugin-enable-waveformfrequencyplot 0
+
+#
+# Simulator
+#
+database require simulator -hints {
+	simulator "xrun -64bit -uvm +incdir+../../RTL/ +incdir+../src ../src/calculator_pkg.sv ../src/calculator_if.sv ../../RTL/calculator.sv ../src/calculator_top.sv -sv_lib test.so +UVM_TESTNAME=calculator_test -gui -input waves.tcl"
+}
+
+#
+# Mnemonic Maps
+#
+mmap new  -reuse -name {Boolean as Logic} -radix %b -contents {{%c=FALSE -edgepriority 1 -shape low}
+{%c=TRUE -edgepriority 1 -shape high}}
+mmap new  -reuse -name {Example Map} -radix %x -contents {{%b=11???? -bgcolor orange -label REG:%x -linecolor yellow -shape bus}
+{%x=1F -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=2C -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=* -label %x -linecolor gray -shape bus}}
+
+#
+# Design Browser windows
+#
+if {[catch {window new WatchList -name "Design Browser 1" -geometry 1366x596+0+31}] != ""} {
+    window geometry "Design Browser 1" 1366x596+0+31
+}
+window target "Design Browser 1" on
+browser using {Design Browser 1}
+browser set -scope [subst  {simulator::[format {calculator_top.dut_if}]} ]
+browser set \
+    -signalsort name
+browser yview see [subst  {simulator::[format {calculator_top.dut_if}]} ]
+browser timecontrol set -lock 0
+
+#
+# Waveform windows
+#
+if {[catch {window new WaveWindow -name "Waveform 1" -geometry 1366x596+0+31}] != ""} {
+    window geometry "Waveform 1" 1366x596+0+31
+}
+window target "Waveform 1" on
+waveform using {Waveform 1}
+waveform sidebar visibility partial
+waveform set \
+    -primarycursor TimeA \
+    -signalnames name \
+    -signalwidth 175 \
+    -units ns \
+    -valuewidth 75
+waveform baseline set -time 0
+
+set id [waveform add -signals [subst  {
+	{simulator::[format {calculator_top.dut_if.clk}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{simulator::[format {calculator_top.dut_if.rst_n}]}
+	} ]]
+set id [waveform add -cdivider divider]
+set id [waveform add -signals [subst  {
+	{simulator::[format {calculator_top.dut_if.function_in[1:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{[format {signed(simulator::calculator_top.dut_if.dat_a_in)} ]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{[format {signed(simulator::calculator_top.dut_if.dat_b_in)} ]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{[format {signed(simulator::calculator_top.dut_if.out)} ]}
+	} ]]
+waveform format $id -radix %d
+
+waveform xview limits 0 2000ns
+
+#
+# Waveform Window Links
+#
+
+#
+# Console windows
+#
+console set -windowname Console
+window geometry Console 730x250+261+564
+
+#
+# Layout selection
+#
+
