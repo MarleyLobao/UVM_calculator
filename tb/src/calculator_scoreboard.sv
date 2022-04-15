@@ -23,7 +23,8 @@ class calculator_scoreboard extends uvm_scoreboard;
 
     virtual function void connect_phase(uvm_phase phase);
         super.connect_phase(phase);
-        rm.in.connect(scoreboard_port_in);
+        //rm.in.connect(scoreboard_port_in);
+        scoreboard_port_in.connect(rm.in);
         scoreboard_port_out.connect(comp.before_export);
         rm.out.connect(comp.after_export);
     endfunction
