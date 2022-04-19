@@ -22,15 +22,15 @@ class calculator_driver extends uvm_driver #(calculator_seq_item);
         wait(inter.rst_n === 0);
 
         forever begin
+
+            @(posedge inter.clk);
                         
             if (!inter.rst_n) begin
-                @(posedge inter.clk);
                 inter.dat_a_in <= 8'd0;
                 inter.dat_b_in <= 8'd0;
                 inter.function_in <= 2'd0;
             end else begin
                 seq_item_port.try_next_item(seq_item);
-                @(posedge inter.clk);
                 inter.dat_a_in <= seq_item.dat_a_in;
                 inter.dat_b_in <= seq_item.dat_b_in;
                 inter.function_in <= seq_item.function_in;
