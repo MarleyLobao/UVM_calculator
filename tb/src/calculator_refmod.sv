@@ -33,9 +33,7 @@ class calculator_refmod extends uvm_component;
         
         forever begin
             @(start_calc);
-
             csi_out.out = calc(csi_in.dat_a_in, csi_in.dat_b_in, csi_in.function_in);
-            
             out.write(csi_out);
         end
     endtask: run_phase

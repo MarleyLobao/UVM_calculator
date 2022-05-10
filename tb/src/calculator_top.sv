@@ -1,6 +1,6 @@
+import calculator_pkg::*;
+
 module calculator_top;
-  import uvm_pkg::*;
-  import calculator_pkg::*;
 
   logic clk;
   logic rst;

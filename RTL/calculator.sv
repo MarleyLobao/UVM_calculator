@@ -12,7 +12,7 @@ Key notes:
 module calculator (
   input  logic clk,
   input  logic rst_n,
-  input        logic  [1:0]  function_in,
+  input  logic        [1:0]  function_in,
   input  logic signed [7:0]  dat_a_in,
   input  logic signed [7:0]  dat_b_in,
   output logic signed [15:0] out
