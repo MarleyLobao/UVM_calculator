@@ -26,7 +26,7 @@ class calculator_test extends uvm_test;
       repeat(CYCLES) @(posedge envir.ag.drv.inter.clk);
     join_any
     
-    repeat(CYCLES) @(posedge envir.ag.drv.inter.clk);
+    repeat(LATENCY_BLOCK) @(posedge envir.ag.drv.inter.clk);
     phase.drop_objection(this);
   endtask: run_phase
 
