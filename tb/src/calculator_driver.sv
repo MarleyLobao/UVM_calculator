@@ -4,8 +4,11 @@ class calculator_driver extends uvm_driver #(calculator_seq_item);
     virtual calculator_if inter;
     calculator_seq_item seq_item;
 
+    int qtd_rst;
+
     function new(string name = "calculator_driver", uvm_component parent = null);
         super.new(name, parent);
+        qtd_rst = 0;
     endfunction
 
     virtual function void build_phase(uvm_phase phase);
@@ -29,6 +32,7 @@ class calculator_driver extends uvm_driver #(calculator_seq_item);
                 inter.dat_a_in <= 8'd0;
                 inter.dat_b_in <= 8'd0;
                 inter.function_in <= 2'd0;
+                qtd_rst = qtd_rst + 1;
             end else begin
                 seq_item_port.try_next_item(seq_item);
                 inter.dat_a_in <= seq_item.dat_a_in;
