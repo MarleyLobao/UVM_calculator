@@ -13,5 +13,4 @@ class calculator_seq_item extends uvm_sequence_item;
   function string convert2string();
    return $sformatf("\nfunction_in: %0d\nA: %0d\nB: %0d\nout: %0d\n",function_in,dat_a_in,dat_b_in,out);
   endfunction :convert2string
-
 endclass

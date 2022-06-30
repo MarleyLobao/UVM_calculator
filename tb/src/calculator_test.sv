@@ -8,12 +8,14 @@ class calculator_test extends uvm_test;
 
   function new(string name, uvm_component parent = null);
     super.new(name, parent);
+
     CYCLES = 1000;
     LATENCY_BLOCK = 2;
   endfunction
 
   virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
+
     envir = calculator_env::type_id::create("envir", this);
     seq = calculator_sequence::type_id::create("seq", this);
   endfunction
@@ -27,7 +29,7 @@ class calculator_test extends uvm_test;
     join_any
     
     repeat(LATENCY_BLOCK) @(posedge envir.ag.drv.inter.clk);
+
     phase.drop_objection(this);
   endtask: run_phase
-
 endclass

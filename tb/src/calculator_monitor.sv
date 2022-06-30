@@ -21,7 +21,6 @@ class calculator_monitor extends uvm_monitor;
         if(!uvm_config_db#(virtual calculator_if)::get(this, "", "vif", inter)) begin
             `uvm_fatal("NOVIF","The virtual connection wasn't successful!");
         end
-
     endfunction
 
     virtual task run_phase(uvm_phase phase);
@@ -49,8 +48,6 @@ class calculator_monitor extends uvm_monitor;
                     monitor_port_out.write(seq_item_out);
                 end
             end
-        join           
-
-
+        join
     endtask
 endclass : calculator_monitor
