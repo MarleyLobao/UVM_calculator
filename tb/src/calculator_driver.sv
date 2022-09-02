@@ -17,7 +17,7 @@ class calculator_driver extends uvm_driver #(calculator_seq_item);
     endfunction
 
     virtual task main_phase(uvm_phase phase);
-        super.run_phase(phase);
+        super.main_phase(phase);
         
         wait(inter.rst_n === 0);
 
