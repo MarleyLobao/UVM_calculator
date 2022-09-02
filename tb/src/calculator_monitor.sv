@@ -1,7 +1,7 @@
 class calculator_monitor extends uvm_monitor;
     `uvm_component_utils(calculator_monitor)
 
-    virtual calculator_if inter;
+    virtual calculator_if vif_monitor;
     calculator_seq_item seq_item_in, seq_item_out;
 
     uvm_analysis_port #(calculator_seq_item) monitor_port_in;
@@ -18,7 +18,7 @@ class calculator_monitor extends uvm_monitor;
         seq_item_in = calculator_seq_item::type_id::create("seq_item_in",this);
         seq_item_out = calculator_seq_item::type_id::create("seq_item_out",this);
         
-        if(!uvm_config_db#(virtual calculator_if)::get(this, "", "vif", inter)) begin
+        if(!uvm_config_db#(virtual calculator_if)::get(this, "", "vif", vif_monitor)) begin
             `uvm_fatal("NOVIF","The virtual connection wasn't successful!");
         end
     endfunction
@@ -26,25 +26,25 @@ class calculator_monitor extends uvm_monitor;
     virtual task main_phase(uvm_phase phase);
         super.main_phase(phase);
         
-        wait(inter.rst_n === 0);
+        wait(vif_monitor.rst_n === 0);
         
-        @(posedge inter.rst_n);
+        @(posedge vif_monitor.rst_n);
         fork
 
             forever begin
-                @(posedge inter.clk)
-                seq_item_in.dat_a_in <= inter.dat_a_in;
-                seq_item_in.dat_b_in <= inter.dat_b_in;
-                seq_item_in.function_in <= inter.function_in;
+                @(posedge vif_monitor.clk)
+                seq_item_in.dat_a_in <= vif_monitor.dat_a_in;
+                seq_item_in.dat_b_in <= vif_monitor.dat_b_in;
+                seq_item_in.function_in <= vif_monitor.function_in;
                 monitor_port_in.write(seq_item_in);
             end
 
             begin
-                @(posedge inter.clk)
+                @(posedge vif_monitor.clk)
 
                 forever begin
-                    @(posedge inter.clk)
-                    seq_item_out.out <= inter.out;
+                    @(posedge vif_monitor.clk)
+                    seq_item_out.out <= vif_monitor.out;
                     monitor_port_out.write(seq_item_out);
                 end
             end

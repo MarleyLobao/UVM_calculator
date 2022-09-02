@@ -24,20 +24,20 @@ module calculator_top;
 
   always #10 clk = !clk;
 
-  calculator_if dut_if(.clk(clk), .rst_n(rst));
+  calculator_if vif_top(.clk(clk), .rst_n(rst));
   
   calculator my_calculator(
               .clk(clk),
               .rst_n(rst),
-              .function_in(dut_if.function_in),
-              .dat_a_in(dut_if.dat_a_in),
-              .dat_b_in(dut_if.dat_b_in),
-              .out(dut_if.out)
+              .function_in(vif_top.function_in),
+              .dat_a_in(vif_top.dat_a_in),
+              .dat_b_in(vif_top.dat_b_in),
+              .out(vif_top.out)
   );
 
   initial begin
     
-    uvm_config_db#(virtual calculator_if)::set(uvm_root::get(), "*", "vif", dut_if);
+    uvm_config_db#(virtual calculator_if)::set(uvm_root::get(), "*", "vif", vif_top);
 
     run_test("calculator_test");
   end

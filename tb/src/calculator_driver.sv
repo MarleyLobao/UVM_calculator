@@ -1,7 +1,7 @@
 class calculator_driver extends uvm_driver #(calculator_seq_item);
     `uvm_component_utils(calculator_driver)
 
-    virtual calculator_if inter;
+    virtual calculator_if vif_driver;
     calculator_seq_item seq_item;
 
     function new(string name = "calculator_driver", uvm_component parent = null);
@@ -11,7 +11,7 @@ class calculator_driver extends uvm_driver #(calculator_seq_item);
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         
-        if(!uvm_config_db#(virtual calculator_if)::get(this, "", "vif", inter)) begin
+        if(!uvm_config_db#(virtual calculator_if)::get(this, "", "vif", vif_driver)) begin
             `uvm_fatal("NOVIF","The virtual connection wasn't successful!");
         end
     endfunction
@@ -19,20 +19,20 @@ class calculator_driver extends uvm_driver #(calculator_seq_item);
     virtual task main_phase(uvm_phase phase);
         super.main_phase(phase);
         
-        wait(inter.rst_n === 0);
+        wait(vif_driver.rst_n === 0);
 
         forever begin
-            @(posedge inter.clk);
+            @(posedge vif_driver.clk);
                         
-            if (!inter.rst_n) begin
-                inter.dat_a_in <= 8'd0;
-                inter.dat_b_in <= 8'd0;
-                inter.function_in <= 2'd0;
+            if (!vif_driver.rst_n) begin
+                vif_driver.dat_a_in <= 8'd0;
+                vif_driver.dat_b_in <= 8'd0;
+                vif_driver.function_in <= 2'd0;
             end else begin
                 seq_item_port.try_next_item(seq_item);
-                inter.dat_a_in <= seq_item.dat_a_in;
-                inter.dat_b_in <= seq_item.dat_b_in;
-                inter.function_in <= seq_item.function_in;
+                vif_driver.dat_a_in <= seq_item.dat_a_in;
+                vif_driver.dat_b_in <= seq_item.dat_b_in;
+                vif_driver.function_in <= seq_item.function_in;
                 seq_item_port.item_done();
             end
         end
