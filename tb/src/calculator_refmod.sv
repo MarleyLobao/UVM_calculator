@@ -28,13 +28,13 @@ class calculator_refmod extends uvm_component;
         -> start_calc;
     endtask
     
-    virtual task run_phase(uvm_phase phase);
-        super.run_phase(phase);
+    virtual task main_phase(uvm_phase phase);
+        super.main_phase(phase);
         
         forever begin
             @(start_calc);
             csi_out.out = calc(csi_in.dat_a_in, csi_in.dat_b_in, csi_in.function_in);
             out.write(csi_out);
         end
-    endtask: run_phase
+    endtask: main_phase
 endclass: calculator_refmod

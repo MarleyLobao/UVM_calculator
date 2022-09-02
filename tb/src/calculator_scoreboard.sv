@@ -29,9 +29,9 @@ class calculator_scoreboard extends uvm_scoreboard;
     endfunction
 endclass: calculator_scoreboard
 
-//Conexão das portas
-//1.Se as portas forem iguais, não importa a ordem.
-//2.Da esquerda para a direita a conexão deve ter preferência da seguinte forma:
-    //2.1 Portas imp precisam de um método 'write' que possa escrever nelas
-    //2.2 Portas export são para descer em nível de classe, por exemplo,
-    //do scoreboard para o refmod. O refmod está abaixo do scoreboard, hierarquicamente.
+//Port Connection
+//1.If the ports are equal, it doesn't matter the order.
+//2.From left to right the connection should take preference as follows:
+    //2.1 Imp ports need a 'write' method that can write to them
+    //2.2 Export ports are for going down to class level, e.g,
+    // from scoreboard to refmod. The refmod is below the scoreboard, hierarchically.

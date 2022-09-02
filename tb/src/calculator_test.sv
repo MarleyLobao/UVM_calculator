@@ -20,16 +20,16 @@ class calculator_test extends uvm_test;
     seq = calculator_sequence::type_id::create("seq", this);
   endfunction
  
-  task run_phase(uvm_phase phase);    
+  task main_phase(uvm_phase phase);    
     phase.raise_objection(this);
 
     fork
       seq.start(envir.ag.sqr);
-      repeat(CYCLES) @(posedge envir.ag.drv.inter.clk);
+      repeat(CYCLES) @(posedge envir.ag.drv.vif_driver.clk);
     join_any
     
-    repeat(LATENCY_BLOCK) @(posedge envir.ag.drv.inter.clk);
+    repeat(LATENCY_BLOCK) @(posedge envir.ag.drv.vif_driver.clk);
 
     phase.drop_objection(this);
-  endtask: run_phase
+  endtask: main_phase
 endclass

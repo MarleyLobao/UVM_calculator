@@ -8,13 +8,13 @@ module calculator_top;
   initial begin
     clk = 1;
 
-    //Esse reset inicial é necessário para dar start no bloco.
+    //This initial reset is needed to start the block.
     rst = 0;
     #20 rst = 1;
-    //Assim como desligar o reset 1 ciclo depois para permitir
-    //que a quantidade de ciclos definida seja alcançada.
+    //To turn off the reset 1 cycle later to allow
+    //that the defined number of cycles is reached.
 
-    //Assim, rst pode ser completamente aleatório depois disso.
+    //So rst can be completely random after that.
     #100  rst = 1;
     #3704 rst = 0;
     #56   rst = 1;
@@ -24,20 +24,20 @@ module calculator_top;
 
   always #10 clk = !clk;
 
-  calculator_if dut_if(.clk(clk), .rst_n(rst));
+  calculator_if vif_top(.clk(clk), .rst_n(rst));
   
   calculator my_calculator(
               .clk(clk),
               .rst_n(rst),
-              .function_in(dut_if.function_in),
-              .dat_a_in(dut_if.dat_a_in),
-              .dat_b_in(dut_if.dat_b_in),
-              .out(dut_if.out)
+              .function_in(vif_top.function_in),
+              .dat_a_in(vif_top.dat_a_in),
+              .dat_b_in(vif_top.dat_b_in),
+              .out(vif_top.out)
   );
 
   initial begin
     
-    uvm_config_db#(virtual calculator_if)::set(uvm_root::get(), "*", "vif", dut_if);
+    uvm_config_db#(virtual calculator_if)::set(uvm_root::get(), "*", "vif", vif_top);
 
     run_test("calculator_test");
   end
