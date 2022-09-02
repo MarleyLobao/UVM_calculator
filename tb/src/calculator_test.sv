@@ -20,7 +20,7 @@ class calculator_test extends uvm_test;
     seq = calculator_sequence::type_id::create("seq", this);
   endfunction
  
-  task run_phase(uvm_phase phase);    
+  task main_phase(uvm_phase phase);    
     phase.raise_objection(this);
 
     fork

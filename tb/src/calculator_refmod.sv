@@ -28,7 +28,7 @@ class calculator_refmod extends uvm_component;
         -> start_calc;
     endtask
     
-    virtual task run_phase(uvm_phase phase);
+    virtual task main_phase(uvm_phase phase);
         super.run_phase(phase);
         
         forever begin

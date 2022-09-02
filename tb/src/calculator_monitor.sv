@@ -23,7 +23,7 @@ class calculator_monitor extends uvm_monitor;
         end
     endfunction
 
-    virtual task run_phase(uvm_phase phase);
+    virtual task main_phase(uvm_phase phase);
         super.run_phase(phase);
         
         wait(inter.rst_n === 0);
