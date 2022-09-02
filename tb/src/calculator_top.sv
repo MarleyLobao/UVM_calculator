@@ -8,13 +8,13 @@ module calculator_top;
   initial begin
     clk = 1;
 
-    //Esse reset inicial é necessário para dar start no bloco.
+    //This initial reset is needed to start the block.
     rst = 0;
     #20 rst = 1;
-    //Assim como desligar o reset 1 ciclo depois para permitir
-    //que a quantidade de ciclos definida seja alcançada.
+    //To turn off the reset 1 cycle later to allow
+    //that the defined number of cycles is reached.
 
-    //Assim, rst pode ser completamente aleatório depois disso.
+    //So rst can be completely random after that.
     #100  rst = 1;
     #3704 rst = 0;
     #56   rst = 1;
