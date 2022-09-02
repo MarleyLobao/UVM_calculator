@@ -25,10 +25,10 @@ class calculator_test extends uvm_test;
 
     fork
       seq.start(envir.ag.sqr);
-      repeat(CYCLES) @(posedge envir.ag.drv.inter.clk);
+      repeat(CYCLES) @(posedge envir.ag.drv.vif_driver.clk);
     join_any
     
-    repeat(LATENCY_BLOCK) @(posedge envir.ag.drv.inter.clk);
+    repeat(LATENCY_BLOCK) @(posedge envir.ag.drv.vif_driver.clk);
 
     phase.drop_objection(this);
   endtask: main_phase
