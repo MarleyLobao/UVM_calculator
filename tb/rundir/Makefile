@@ -11,7 +11,7 @@ MODEL = ../src/external.cpp
 
 RTL = ../../RTL/calculator.sv
 
-RUN_ARGS_COMMON = -access +r -input ../script/shm.tcl \
+RUN_ARGS_COMMON = -access +r -input ../scripts/shm.tcl \
 		  +uvm_set_config_int=*,recording_detail,1 -coverage all -covoverwrite
 
 sim:
