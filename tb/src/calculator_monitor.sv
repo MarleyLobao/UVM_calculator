@@ -33,10 +33,12 @@ class calculator_monitor extends uvm_monitor;
 
             forever begin
                 @(posedge vif_monitor.clk)
-                seq_item_in.dat_a_in <= vif_monitor.dat_a_in;
+		begin_tr(seq_item, "sequence_item_monitor");
+		seq_item_in.dat_a_in <= vif_monitor.dat_a_in;
                 seq_item_in.dat_b_in <= vif_monitor.dat_b_in;
                 seq_item_in.function_in <= vif_monitor.function_in;
-                monitor_port_in.write(seq_item_in);
+		end_tr(seq_item);
+		monitor_port_in.write(seq_item_in);
             end
 
             begin
@@ -44,8 +46,10 @@ class calculator_monitor extends uvm_monitor;
 
                 forever begin
                     @(posedge vif_monitor.clk)
-                    seq_item_out.out <= vif_monitor.out;
-                    monitor_port_out.write(seq_item_out);
+		    begin_tr(seq_item, "sequence_item_monitor");
+		    seq_item_out.out <= vif_monitor.out;
+		    end_tr(seq_item);
+		    monitor_port_out.write(seq_item_out);
                 end
             end
         join
