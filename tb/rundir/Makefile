@@ -1,3 +1,6 @@
+PATHS = +incdir+../../RTL/ \
+        +incdir+../src/
+
 IFS = ../src/calculator_if.sv
 
 PKGS = ../src/calculator_pkg.sv
@@ -10,7 +13,7 @@ RTL = ../../RTL/calculator.sv
 
 sim:
 	@g++ -g -fPIC -Wall -std=c++0x $(MODEL) -shared -o test.so
-	xrun -64bit -uvm +incdir+../../RTL/ +incdir+../src $(PKGS) $(IFS) $(RTL) $(TOP) -sv_lib test.so \
+	xrun -64bit -uvm $(PATHS) $(PKGS) $(IFS) $(RTL) $(TOP) -sv_lib test.so \
     +UVM_TESTNAME=calculator_test
 
 clean:
@@ -18,5 +21,5 @@ clean:
 
 gui:
 	@g++ -g -fPIC -Wall -std=c++0x $(MODEL) -shared -o test.so
-	xrun -64bit -uvm +incdir+../../RTL/ +incdir+../src $(PKGS) $(IFS) $(RTL) $(TOP) -sv_lib test.so \
+	xrun -64bit -uvm $(PATHS) $(PKGS) $(IFS) $(RTL) $(TOP) -sv_lib test.so \
     +UVM_TESTNAME=calculator_test -gui
