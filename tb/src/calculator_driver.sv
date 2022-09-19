@@ -29,13 +29,11 @@ class calculator_driver extends uvm_driver #(calculator_seq_item);
                 vif_driver.dat_b_in <= 8'd0;
                 vif_driver.function_in <= 2'd0;
             end else begin
-		begin_tr(seq_item, "sequence_item_driver");
-		seq_item_port.try_next_item(seq_item);
+                seq_item_port.try_next_item(seq_item);
                 vif_driver.dat_a_in <= seq_item.dat_a_in;
                 vif_driver.dat_b_in <= seq_item.dat_b_in;
                 vif_driver.function_in <= seq_item.function_in;
-		end_tr(seq_item);
-		seq_item_port.item_done();
+                seq_item_port.item_done();
             end
         end
     endtask
