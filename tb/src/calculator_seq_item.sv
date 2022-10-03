@@ -4,6 +4,9 @@ class calculator_seq_item extends uvm_sequence_item;
   rand bit signed [7:0]  dat_b_in;
   bit signed [15:0] out;
 
+  constraint operand_A_c{ dat_a_in dist {127:=120, [1:126]:=1, 0:=120, -1:=120, [-127:-2]:=1, -128:=120}; }
+  constraint operand_B_c{ dat_b_in dist {127:=120, [1:126]:=1, 0:=120, -1:=120, [-127:-2]:=1, -128:=120}; }
+
   function new(string name = "");
     super.new(name);
   endfunction
