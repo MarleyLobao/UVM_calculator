@@ -43,7 +43,11 @@ always@(*)
       2'b00:  reg_out   <= reg_dat_a_in + reg_dat_b_in; 
       2'b01:  reg_out   <= reg_dat_a_in - reg_dat_b_in;
       2'b10:  reg_out   <= reg_dat_a_in * reg_dat_b_in;
-      2'b11:  reg_out   <= reg_dat_a_in / reg_dat_b_in;
+      2'b11:
+      begin
+        if(reg_dat_b_in == 8'b0) reg_out   <= (reg_dat_a_in[7]) ? (-16'd32768):(16'd32767);
+        else                     reg_out   <= reg_dat_a_in / reg_dat_b_in;
+      end
   endcase
 
 endmodule
