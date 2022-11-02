@@ -2,7 +2,7 @@
 
 ## Project Description
 
-This repo is meant to learn UVM using SystemVerilog
+This repository is meant for learning UVM using SystemVerilog. Through a verification environment, some hardware verification concepts are applied for a calculator with the four basic operations.
 
 ## 🔨 Project Features
 
