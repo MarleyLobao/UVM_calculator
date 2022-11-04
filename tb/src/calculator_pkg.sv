@@ -10,6 +10,7 @@ package calculator_pkg;
   `include "./calculator_monitor.sv"
   `include "./calculator_agent.sv"
 
+  `include "./calculator_comparator.sv"
   `include "./calculator_refmod.sv"
   `include "./calculator_scoreboard.sv"
   //`include "./calculator_coverage.sv"
