@@ -11,7 +11,7 @@ class calculator_comparator extends uvm_component;
 
   function new(string name="calculator_comparator", uvm_component parent);
     super.new(name, parent);
-	  outfifo = new("outfifo", this);
+    outfifo = new("outfifo", this);
     expfifo = new("expfifo", this);
 
     PASS_CNT = 0;
@@ -19,7 +19,7 @@ class calculator_comparator extends uvm_component;
   endfunction
     
   function void build_phase(uvm_phase phase);
-	  super.build_phase(phase);
+    super.build_phase(phase);
     calculated_seq_item = calculator_seq_item::type_id::create("calculated_seq_item", this);
     expected_seq_item = calculator_seq_item::type_id::create("expected_seq_item", this);
   endfunction
@@ -47,12 +47,12 @@ class calculator_comparator extends uvm_component;
   endfunction: report_phase
 
   function void PASS();
-	  PASS_CNT++;
+    PASS_CNT++;
     `uvm_info ("PASS",calculated_seq_item.convert2string(), UVM_HIGH);
   endfunction
 
   function void ERROR();
-  	ERROR_CNT++;
+    ERROR_CNT++;
     `uvm_error ("ERROR [CALCULATED]",calculated_seq_item.convert2string());
     `uvm_info ("ERROR [EXPECTED]",expected_seq_item.convert2string(), UVM_LOW);
   endfunction
