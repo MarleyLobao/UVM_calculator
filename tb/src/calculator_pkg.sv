@@ -12,7 +12,7 @@ package calculator_pkg;
 
   `include "./calculator_refmod.sv"
   `include "./calculator_scoreboard.sv"
-  //`include "./calculator_coverage.sv"
+  `include "./calculator_coverage.sv"
   `include "./calculator_env.sv"
   `include "./calculator_test.sv"
 endpackage
