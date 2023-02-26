@@ -1,0 +1,46 @@
+
+#
+# Mnemonic Maps
+#
+mmap new  -reuse -name {Boolean as Logic} -radix %b -contents {{%c=FALSE -edgepriority 1 -shape low}
+{%c=TRUE -edgepriority 1 -shape high}}
+mmap new  -reuse -name {Example Map} -radix %x -contents {{%b=11???? -bgcolor orange -label REG:%x -linecolor yellow -shape bus}
+{%x=1F -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=2C -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=* -label %x -linecolor gray -shape bus}}
+
+array unset createdGroup
+array set createdGroup {}
+set id [waveform add -signals [subst  {
+	{[format {calculator_top.vif_top.clk}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {calculator_top.vif_top.dat_a_in[7:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {calculator_top.vif_top.dat_b_in[7:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {calculator_top.vif_top.function_in[1:0]}]}
+	} ]]
+waveform format $id -radix %b
+set id [waveform add -signals [subst  {
+	{[format {calculator_top.vif_top.out[15:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {calculator_top.vif_top.rst_n}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {$uvm:{uvm_test_top.envir.ag.drv}.sequence_item_driver}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {$uvm:{uvm_test_top.envir.ag.mon}.seq_item_monitor_in}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {$uvm:{uvm_test_top.envir.ag.mon}.seq_item_monitor_out}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {$uvm:{uvm_test_top.envir.sb.rm}.refmod}]}
+	} ]]
+
+waveform xview limits 0 127.031186ns

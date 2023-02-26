@@ -4,6 +4,9 @@ class calculator_monitor extends uvm_monitor;
     virtual calculator_if vif_monitor;
     calculator_seq_item seq_item_in, seq_item_out;
 
+    parameter DRIVER_LATENCY = 2;
+    parameter OUTPUT_LATENCY = 4;
+
     uvm_analysis_port #(calculator_seq_item) monitor_port_in;
     uvm_analysis_port #(calculator_seq_item) monitor_port_out;
 
@@ -26,25 +29,27 @@ class calculator_monitor extends uvm_monitor;
     virtual task main_phase(uvm_phase phase);
         super.main_phase(phase);
         
-        wait(vif_monitor.rst_n === 0);
-        
-        @(posedge vif_monitor.rst_n);
         fork
-
-            forever begin
-                @(posedge vif_monitor.clk)
-                seq_item_in.dat_a_in <= vif_monitor.dat_a_in;
-                seq_item_in.dat_b_in <= vif_monitor.dat_b_in;
-                seq_item_in.function_in <= vif_monitor.function_in;
-                monitor_port_in.write(seq_item_in);
+            begin
+                repeat(DRIVER_LATENCY) @(posedge vif_monitor.clk);
+                forever begin
+                    begin_tr(seq_item_in, "seq_item_monitor_in");
+                    seq_item_in.dat_a_in <= vif_monitor.dat_a_in;
+                    seq_item_in.dat_b_in <= vif_monitor.dat_b_in;
+                    seq_item_in.function_in <= vif_monitor.function_in;
+                    @(posedge vif_monitor.clk);
+                    end_tr(seq_item_in);
+                    monitor_port_in.write(seq_item_in);
+                end
             end
 
             begin
-                @(posedge vif_monitor.clk)
-
+                repeat(OUTPUT_LATENCY) @(posedge vif_monitor.clk);
                 forever begin
-                    @(posedge vif_monitor.clk)
+                    begin_tr(seq_item_out, "seq_item_monitor_out");
                     seq_item_out.out <= vif_monitor.out;
+                    @(posedge vif_monitor.clk);
+                    end_tr(seq_item_out);
                     monitor_port_out.write(seq_item_out);
                 end
             end
