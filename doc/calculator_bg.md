@@ -22,4 +22,10 @@ The following image, depicts the block interface, followed by its ports descript
 
 ![Block Waveforms](figs/calculator_wf.png)
 
+## **Important Features**
 
+In the specific situation where the operation is a division (function_in[1:0] = 2'b11) and the operator B is zero (dat_b_in[7:0] == 8'b0), there is a saturation to:
+
+- If the result is *greater* than can be represented with 16 bits with sign: 16'd32767
+
+- If the result is *smaller* than can be represented with 16 bits with sign: -16'd32768
