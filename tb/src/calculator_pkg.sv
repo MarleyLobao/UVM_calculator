@@ -1,6 +1,8 @@
 import uvm_pkg::*;
 
 package calculator_pkg;
+  parameter CLK_PERIOD = 20;
+
   `include "uvm_macros.svh"
 
   `include "./calculator_seq_item.sv"

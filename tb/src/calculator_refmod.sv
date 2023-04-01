@@ -45,7 +45,7 @@ class calculator_refmod extends uvm_component;
             @(start_calc);
             begin_tr(csi_out,"refmod");
 
-            #20;
+            #CLK_PERIOD;
             csi_out.out <= calc(csi_in.dat_a_in, csi_in.dat_b_in, csi_in.function_in);
 
             if(vif_refmod.rst_n) begin

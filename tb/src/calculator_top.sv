@@ -10,7 +10,7 @@ module calculator_top;
 
     //This initial reset is needed to start the block.
     rst = 0;
-    #20 rst = 1;
+    #CLK_PERIOD rst = 1;
     //To turn off the reset 1 cycle later to allow
     //that the defined number of cycles is reached.
 
@@ -22,7 +22,7 @@ module calculator_top;
     #250  rst = 1;
   end
 
-  always #10 clk = !clk;
+  always #(CLK_PERIOD/2) clk = !clk;
 
   calculator_if vif_top(.clk(clk), .rst_n(rst));
   
