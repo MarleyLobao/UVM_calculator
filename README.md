@@ -27,7 +27,7 @@ The Makefile in the `tb/rundir/` directory has the following options:
 - `make sim`: Run the project with Xcelium Logic Simulator from Cadence;
 - `make gui`: Run the simulation using Simvision's GUI.
 
-When you run `calculator_test` you should notice at the end of the log 1000 matches with the reference model 🏆 
+When you run `calculator_test` you should notice at the end of the log that all the results match with the reference model and the planned coverage has been achieved 🏆 
 
 ## 📚 More about me
 
