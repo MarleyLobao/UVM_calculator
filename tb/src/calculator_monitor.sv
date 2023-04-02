@@ -4,9 +4,6 @@ class calculator_monitor extends uvm_monitor;
     virtual calculator_if vif_monitor;
     calculator_seq_item seq_item_in, seq_item_out;
 
-    parameter DRIVER_LATENCY = 2;
-    parameter OUTPUT_LATENCY = 4;
-
     uvm_analysis_port #(calculator_seq_item) monitor_port_in;
     uvm_analysis_port #(calculator_seq_item) monitor_port_out;
 
