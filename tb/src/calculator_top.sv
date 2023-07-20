@@ -1,4 +1,5 @@
 import calculator_pkg::*;
+`include "./calculator_assertions.sv"
 
 module calculator_top;
 
@@ -32,6 +33,15 @@ module calculator_top;
               .function_in(vif_top.function_in),
               .dat_a_in(vif_top.dat_a_in),
               .dat_b_in(vif_top.dat_b_in),
+              .out(vif_top.out)
+  );
+
+  calculator_assertions calc_assert(
+              .clk(clk),
+              .rst_n(rst),
+              .func_in(vif_top.function_in),
+              .A_in(vif_top.dat_a_in),
+              .B_in(vif_top.dat_b_in),
               .out(vif_top.out)
   );
 

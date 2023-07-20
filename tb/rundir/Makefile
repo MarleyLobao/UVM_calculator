@@ -20,7 +20,7 @@ sim:
             +UVM_TESTNAME=calculator_test $(RUN_ARGS_COMMON) +CYCLES=1234
 
 clean:
-	@rm -rf INCA_libs waves.shm cov_work/ *.history *.log *.key mdv.log imc.log imc.key ncvlog_*.err *.trn *.dsn .simvision/ simvision* xcelium.d simv.daidir *.so *.o *.err
+	@rm -rf INCA_libs waves.shm cov_work/ *.history *.log *.key mdv.log imc.log imc.key ncvlog_*.err *.trn *.dsn .bpad/ .simvision/ simvision* xcelium.d .reinvoke.sim simv.daidir *.so *.o *.err
 
 gui:
 	@g++ -g -fPIC -Wall -std=c++0x $(MODEL) -shared -o test.so
