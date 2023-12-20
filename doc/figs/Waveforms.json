@@ -4,5 +4,5 @@
   {name: 'dat_a_in', wave: 'x3456x..|x89x..', data: ['A', 'C', 'E', 'G', 'I', 'K']},
   {name: 'dat_b_in', wave: 'x3456x..|x89x..', data: ['B', 'D', 'F', 'H', 'J', 'L']},
   {name: 'function_in', wave: 'x3456x..|.89x..', data: ['SUM', 'SUB', 'MUL', 'DIV', 'MUL', 'SUB']},
-  {name: 'out', wave: '2..3456x|.2.89x', data: ['\'b0','A+B', 'C-D', 'ExF', 'G/H','\'b0','IxJ','KxL']},
+  {name: 'out', wave: '2..3456x|2..89x', data: ['\'b0','A+B', 'C-D', 'ExF', 'G/H','\'b0','IxJ','K-L']},
 ]}
