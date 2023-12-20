@@ -28,24 +28,22 @@ class calculator_monitor extends uvm_monitor;
         
         fork
             begin
-                repeat(DRIVER_LATENCY) @(posedge vif_monitor.clk);
                 forever begin
                     begin_tr(seq_item_in, "seq_item_monitor_in");
-                    seq_item_in.dat_a_in <= vif_monitor.dat_a_in;
-                    seq_item_in.dat_b_in <= vif_monitor.dat_b_in;
-                    seq_item_in.function_in <= vif_monitor.function_in;
                     @(posedge vif_monitor.clk);
+                    seq_item_in.dat_a_in    <= vif_monitor.dat_a_in;
+                    seq_item_in.dat_b_in    <= vif_monitor.dat_b_in;
+                    seq_item_in.function_in <= vif_monitor.function_in;
                     end_tr(seq_item_in);
                     monitor_port_in.write(seq_item_in);
                 end
             end
 
             begin
-                repeat(OUTPUT_LATENCY) @(posedge vif_monitor.clk);
                 forever begin
                     begin_tr(seq_item_out, "seq_item_monitor_out");
-                    seq_item_out.out <= vif_monitor.out;
                     @(posedge vif_monitor.clk);
+                    seq_item_out.out <= vif_monitor.out;
                     end_tr(seq_item_out);
                     monitor_port_out.write(seq_item_out);
                 end

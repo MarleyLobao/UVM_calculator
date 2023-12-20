@@ -3,8 +3,6 @@ import uvm_pkg::*;
 package calculator_pkg;
   parameter CLK_PERIOD     = 20;
   parameter LATENCY_BLOCK  = 2;
-  parameter DRIVER_LATENCY = 2;
-  parameter OUTPUT_LATENCY = 4;
 
   `include "uvm_macros.svh"
 
