@@ -26,11 +26,17 @@ class calculator_test extends uvm_test;
 
     fork
       seq.start(envir.ag.sqr);
-      repeat(CYCLES) @(posedge envir.ag.drv.vif_driver.clk);
+      wait_for_clk_cycles(CYCLES);
     join_any
     
-    repeat(LATENCY_BLOCK) @(posedge envir.ag.drv.vif_driver.clk);
+    // Waiting for remaining outputs
+    seq.kill();
+    wait_for_clk_cycles(LATENCY_BLOCK+1);
 
     phase.drop_objection(this);
   endtask: main_phase
+
+  task wait_for_clk_cycles(int clk_cycles);
+    repeat(clk_cycles) @(posedge envir.ag.drv.vif_driver.clk);
+  endtask : wait_for_clk_cycles
 endclass
