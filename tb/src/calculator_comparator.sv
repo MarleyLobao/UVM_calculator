@@ -2,6 +2,7 @@ class calculator_comparator extends uvm_component;
   `uvm_component_utils(calculator_comparator)
   
   int PASS_CNT, ERROR_CNT;
+  string final_result;
 
   calculator_seq_item calculated_seq_item;
   calculator_seq_item expected_seq_item;
@@ -16,6 +17,7 @@ class calculator_comparator extends uvm_component;
 
     PASS_CNT = 0;
     ERROR_CNT = 0;
+    final_result = "TEST FAIL";
   endfunction
     
   function void build_phase(uvm_phase phase);
@@ -38,11 +40,16 @@ class calculator_comparator extends uvm_component;
 
   function void report_phase(uvm_phase phase);
     phase.raise_objection(this);
-    if(!ERROR_CNT) begin
-      `uvm_info ("TEST PASS",$sformatf("TEST WAS FINALIZED WITH %4d HITS!",PASS_CNT), UVM_LOW);
-    end else begin
-      `uvm_info ("TEST FAIL",$sformatf("TEST WAS FINALIZED WITH %4d ERRORS!",ERROR_CNT), UVM_LOW);
+    $write("\n");
+
+    if((PASS_CNT+ERROR_CNT) == 0) begin
+      `uvm_fatal (final_result, "THIS TEST DID NOT COMPARE ANYTHING!");
+    end else if(ERROR_CNT == 0) begin
+      final_result = "TEST PASS";
     end
+
+    `uvm_info (final_result, $sformatf("FINAL RESULTS:\n%4d HITS\n%4d ERRORS", PASS_CNT, ERROR_CNT), UVM_LOW);
+
     phase.drop_objection(this);
   endfunction: report_phase
 
@@ -53,8 +60,7 @@ class calculator_comparator extends uvm_component;
 
   function void ERROR();
     ERROR_CNT++;
-    `uvm_error ("ERROR [CALCULATED]",calculated_seq_item.convert2string());
-    `uvm_info ("ERROR [EXPECTED]",expected_seq_item.convert2string(), UVM_LOW);
+    `uvm_error ("ERROR", $sformatf("CALCULATED: %d != EXPECTED: %d", calculated_seq_item.out, expected_seq_item.out));
   endfunction
 
 endclass
