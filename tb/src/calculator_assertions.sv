@@ -33,6 +33,18 @@ module calculator_assertions(
       zero_div_with_A_neg |-> out_min;
   endproperty
 
+  property start_reset;
+    @(posedge clk)
+      $fell(rst_n) |-> (out == 16'b0);
+  endproperty
+
+  property end_reset;
+    @(posedge clk)
+      $rose(rst_n) |-> s_eventually (out != 16'b0);
+  endproperty
+
   zero_div_assert_A_pos: assert property (zero_division_A_pos);
   zero_div_assert_A_neg: assert property (zero_division_A_neg);
+  start_reset_assert: assert property (start_reset);
+  end_reset_assert: assert property (end_reset);
 endmodule
