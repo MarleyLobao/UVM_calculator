@@ -31,8 +31,8 @@ class calculator_comparator extends uvm_component;
       outfifo.get(calculated_seq_item);
       expfifo.get(expected_seq_item);
 
-      if (calculated_seq_item.out == expected_seq_item.out) PASS();
-      else ERROR();
+      if (calculated_seq_item.compare(expected_seq_item)) PASS_CNT++;
+      else ERROR_CNT++;
     end
   endtask: main_phase
 
@@ -49,15 +49,5 @@ class calculator_comparator extends uvm_component;
     `uvm_info (final_result, $sformatf("FINAL RESULTS:\n%4d HITS\n%4d ERRORS", PASS_CNT, ERROR_CNT), UVM_LOW);
     phase.drop_objection(this);
   endfunction: report_phase
-
-  function void PASS();
-    PASS_CNT++;
-    `uvm_info ("PASS",calculated_seq_item.convert2string(), UVM_HIGH);
-  endfunction
-
-  function void ERROR();
-    ERROR_CNT++;
-    `uvm_error ("ERROR", $sformatf("BLOCK: %d != MODEL: %d", calculated_seq_item.out, expected_seq_item.out));
-  endfunction
 
 endclass

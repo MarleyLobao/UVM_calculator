@@ -16,10 +16,31 @@ class calculator_seq_item extends uvm_sequence_item;
   `uvm_field_int(function_in, UVM_ALL_ON|UVM_UNSIGNED)
   `uvm_field_int(dat_a_in, UVM_ALL_ON|UVM_DEC)
   `uvm_field_int(dat_b_in, UVM_ALL_ON|UVM_DEC)
-  `uvm_field_int(out, UVM_ALL_ON|UVM_DEC)
+  `uvm_field_int(out, UVM_ALL_ON|UVM_NOCOMPARE|UVM_DEC)
   `uvm_object_utils_end
 
   function string convert2string();
-   return $sformatf("out: %0d",out);
+    return $sformatf("out: %0d",out);
   endfunction :convert2string
+
+  virtual function bit do_compare(uvm_object rhs, uvm_comparer comparer);
+    bit result = 1;
+    calculator_seq_item t;
+
+    assert($cast(t, rhs));
+
+    //----------------------------------------------
+    // All the output signals must be compared here.
+
+    if(out != t.out) begin
+      `uvm_error ("ERROR", "out signal is not matching!");
+      `uvm_info ("CMPDBG", $sformatf("lhs: %d - rhs: %d",out,t.out), UVM_DEBUG);
+      result = 0;
+    end
+
+    //----------------------------------------------
+
+    return result;
+  endfunction
+
 endclass
