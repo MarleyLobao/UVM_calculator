@@ -53,7 +53,7 @@ class calculator_refmod extends uvm_component;
                 else if(reset_latency > 0) reset_latency--;
                 else reset_latency = 0;
             end else begin
-                reset_latency = 3;
+                reset_latency = LATENCY_BLOCK+1;
             end
 
             end_tr(csi_out);
