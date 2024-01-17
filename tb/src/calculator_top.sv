@@ -46,7 +46,8 @@ module calculator_top;
   );
 
   initial begin
-    
+    $timeformat(-9, 0, "ns", 6);
+
     uvm_config_db#(virtual calculator_if)::set(uvm_root::get(), "*", "vif", vif_top);
 
     run_test("calculator_test");

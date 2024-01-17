@@ -1,3 +1,5 @@
+`timescale 1ns/1ps;
+
 import uvm_pkg::*;
 
 package calculator_pkg;
