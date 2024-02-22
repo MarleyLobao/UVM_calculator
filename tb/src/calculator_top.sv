@@ -1,5 +1,4 @@
 import calculator_pkg::*;
-`include "./calculator_assertions.sv"
 
 module calculator_top;
 
