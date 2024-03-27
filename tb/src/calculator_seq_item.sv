@@ -33,8 +33,7 @@ class calculator_seq_item extends uvm_sequence_item;
     // All the output signals must be compared here.
 
     if(out != t.out) begin
-      `uvm_error ("ERROR", "out signal is not matching!");
-      `uvm_info ("CMPDBG", $sformatf("lhs: %d - rhs: %d",out,t.out), UVM_DEBUG);
+      `uvm_error ("ERROR", $sformatf("out signal is not matching! - lhs: %h, rhs: %h", out, t.out));
       result = 0;
     end
 
