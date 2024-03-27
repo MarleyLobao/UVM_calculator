@@ -26,11 +26,7 @@ compile_model:
 
 sim: compile_model
 	xrun -64bit -uvm $(PATHS) -f $(VERIF_RUN_FILES) -f $(RTL_RUN_FILES) -sv_lib $(MODEL_BINARY) \
-             +UVM_TESTNAME=$(TEST) $(RUN_ARGS_COMMON) +CYCLES=$(CYCLES)
+             +UVM_TESTNAME=$(TEST) $(RUN_ARGS_COMMON) +CYCLES=$(CYCLES) $(GUI)
 
 clean:
 	@rm -rf INCA_libs waves.shm cov_work/ *.history *.log *.key mdv.log imc.log imc.key ncvlog_*.err *.trn *.dsn .bpad/ .simvision/ simvision* xcelium.d .reinvoke.sim simv.daidir *.so *.o *.err
-
-gui: compile_model
-	xrun -64bit -uvm $(PATHS) -f $(VERIF_RUN_FILES) -f $(RTL_RUN_FILES) -sv_lib $(MODEL_BINARY) \
-            +UVM_TESTNAME=$(TEST) $(RUN_ARGS_COMMON) +CYCLES=$(CYCLES) -gui
