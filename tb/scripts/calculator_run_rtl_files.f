@@ -1,1 +1,1 @@
-${RTL_SRC}/calculator.sv
+${RTL_SRC}/${BLOCK}.sv
