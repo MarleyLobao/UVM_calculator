@@ -5,7 +5,7 @@
 #
 # You can restore this configuration with:
 #
-#      xrun -64bit -uvm +incdir+../../RTL/ +incdir+../src ../src/calculator_pkg.sv ../src/calculator_if.sv ../../RTL/calculator.sv ../src/calculator_top.sv -sv_lib test.so +UVM_TESTNAME=calculator_test -input /mnt/hdd1tera/marley.lobao/Documents/capacitacao_verificacao/UVM_calculator/tb/src/waves.tcl
+#      xrun -64bit -uvm +incdir+../../RTL/ +incdir+../src ../src/calculator_pkg.sv ../src/calculator_if.sv ../../RTL/calculator.sv ../src/calculator_top.sv -sv_lib test.so +UVM_TESTNAME=calculator_test -input ../src/waves.tcl
 #
 
 set tcl_prompt1 {puts -nonewline "xcelium> "}
