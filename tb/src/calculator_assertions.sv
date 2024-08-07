@@ -43,8 +43,33 @@ module calculator_assertions(
       $rose(rst_n) |-> s_eventually (out != 16'b0);
   endproperty
 
-  zero_div_assert_A_pos: assert property (zero_division_A_pos);
-  zero_div_assert_A_neg: assert property (zero_division_A_neg);
+  property diff_zeros_out_sum;
+    @(posedge clk)
+      $rose(rst_n) |-> s_eventually ((A_in != -B_in) & (!func_in));
+  endproperty
+
+  property diff_zeros_out_sub;
+    @(posedge clk)
+      $rose(rst_n) |-> s_eventually ((A_in != B_in) & (func_in == 2'b01));
+  endproperty
+
+  property diff_zeros_out_mul;
+    @(posedge clk)
+      $rose(rst_n) |-> s_eventually ((A_in != 0) & (B_in != 0) & (func_in == 2'b10));
+  endproperty
+
+  property diff_zeros_out_div;
+    @(posedge clk)
+      $rose(rst_n) |-> s_eventually ((A_in != 0) & (func_in == 2'b11));
+  endproperty
+
+  zero_div_A_pos_assert: assert property (zero_division_A_pos);
+  zero_div_A_neg_assert: assert property (zero_division_A_neg);
   start_reset_assert: assert property (start_reset);
   end_reset_assert: assert property (end_reset);
+
+  diff_zeros_out_sum_assert: assume property (diff_zeros_out_sum);
+  diff_zeros_out_sub_assert: assume property (diff_zeros_out_sub);
+  diff_zeros_out_mul_assert: assume property (diff_zeros_out_mul);
+  diff_zeros_out_div_assert: assume property (diff_zeros_out_div);
 endmodule
