@@ -1,14 +1,14 @@
 module calculator_assertions(
   input clk,
   input rst_n,
-  input [1:0] func_in,
-  input [7:0] A_in,
-  input [7:0] B_in,
+  input [1:0] function_in,
+  input [7:0] dat_a_in,
+  input [7:0] dat_b_in,
   input [15:0] out
 );
 
   sequence zero_div_with_A_pos;
-    (!B_in) && (func_in == 2'b11) && (!A_in[7]); 
+    (!dat_b_in) && (function_in == 2'b11) && (!dat_a_in[7]);
   endsequence
 
   sequence out_max;
@@ -16,7 +16,7 @@ module calculator_assertions(
   endsequence
 
   sequence zero_div_with_A_neg;
-    (!B_in) && (func_in == 2'b11) && (A_in[7]);
+    (!dat_b_in) && (function_in == 2'b11) && (dat_a_in[7]);
   endsequence
 
   sequence out_min;
@@ -24,10 +24,10 @@ module calculator_assertions(
   endsequence
 
   sequence in_zeros_diff;
-    ((A_in != -B_in) & (!func_in)) |                   //sum
-    ((A_in != B_in) & (func_in == 2'b01)) |            //sub
-    ((A_in != 0) & (B_in != 0) & (func_in == 2'b10)) | //mul
-    ((A_in != 0) & (func_in == 2'b11));                //div
+    ((dat_a_in != -dat_b_in) & (!function_in)) |                   //sum
+    ((dat_a_in != dat_b_in) & (function_in == 2'b01)) |            //sub
+    ((dat_a_in != 0) & (dat_b_in != 0) & (function_in == 2'b10)) | //mul
+    ((dat_a_in != 0) & (function_in == 2'b11));                    //div
   endsequence
 
   property zero_division_A_pos;
