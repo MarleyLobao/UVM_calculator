@@ -5,31 +5,9 @@ class calculator_coverage extends uvm_subscriber #(calculator_seq_item);
 
     event new_seq_item;
 
-    covergroup inputs_cg();
-      option.name = "Inputs Covergroup";
+    covergroup operation_cg;
+      option.name = "Operations Covergroup";
       option.per_instance = 1;
-
-      dat_a_cp:coverpoint seq_item.dat_a_in{
-        option.at_least = 100;
-        
-        bins corner_up_b   = {127};
-        bins middle_pos_b  = {[1:126]};
-        bins zeros_b       = {0};
-        bins ones_b        = {-1};
-        bins middle_neg_b  = {[-2:-127]};
-        bins corner_down_b = {-128};
-      }
-
-      dat_b_cp:coverpoint seq_item.dat_b_in{
-        option.at_least = 100;
-
-        bins corner_up_b   = {127};
-        bins middle_pos_b  = {[1:126]};
-        bins zeros_b       = {0};
-        bins ones_b        = {-1};
-        bins middle_neg_b  = {[-2:-127]};
-        bins corner_down_b = {-128};
-      }
 
       function_cp:coverpoint seq_item.function_in{
         option.at_least = 200;
@@ -40,11 +18,50 @@ class calculator_coverage extends uvm_subscriber #(calculator_seq_item);
         bins div_b = {'b11};
       }
 
-      cross_data: cross dat_a_cp, dat_b_cp, function_cp;
+      op_seq_cp:coverpoint seq_item.function_in{
+        option.at_least = 20;
+
+        bins single_mul[] = ([2'b00:2'b11] => 2'b10);
+        bins mul_single[] = (2'b10 => [2'b00:2'b11]);
+
+        bins two_ops[] = ([2'b00:2'b11] [* 2]);
+        bins many_mul  = (2'b10 [* 3:5]);
+      }
+    endgroup
+
+    covergroup inputs_cg();
+      option.name = "Inputs Covergroup";
+      option.per_instance = 1;
+
+      dat_a_cp:coverpoint seq_item.dat_a_in{
+        option.at_least = 100;
+        
+        bins corner_up_b   = {8'sd127};
+        bins zeros_b       = {8'sd0};
+        bins ones_b        = {-8'sd1};
+        bins corner_down_b = {-8'sd128};
+        bins others_b      = {[8'sd1:8'sd126],[-8'sd2:-8'sd127]};
+      }
+
+      dat_b_cp:coverpoint seq_item.dat_b_in{
+        option.at_least = 100;
+
+        bins corner_up_b   = {8'sd127};
+        bins zeros_b       = {8'sd0};
+        bins ones_b        = {-8'sd1};
+        bins corner_down_b = {-8'sd128};
+        bins others_b      = {[8'sd1:8'sd126],[-8'sd2:-8'sd127]};
+      }
+
+      data_cross:  cross dat_a_cp, dat_b_cp, operation_cg.function_cp {
+        ignore_bins except_A_others = binsof(dat_a_cp.others_b);
+        ignore_bins except_B_others = binsof(dat_b_cp.others_b);
+      }
     endgroup
 
     function new(string name="calculator_coverage", uvm_component parent);
       super.new(name, parent);
+      operation_cg = new();
       inputs_cg = new();
     endfunction
 
@@ -59,6 +76,7 @@ class calculator_coverage extends uvm_subscriber #(calculator_seq_item);
 
     task inputs_sample();
       @(new_seq_item);
+      operation_cg.sample();
       inputs_cg.sample();
     endtask
 
