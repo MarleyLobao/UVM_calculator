@@ -4,22 +4,25 @@ module calculator_top;
 
   logic clk;
   logic rst;
+  int clk_rst_duration, rst_probability;
 
   initial begin
     clk = 1;
+    clk_rst_duration = 0;
+    rst_probability = 0;
 
     //This initial reset is needed to start the block.
     rst = 0;
-    #CLK_PERIOD rst = 1;
-    //To turn off the reset 1 cycle later to allow
-    //that the defined number of cycles is reached.
 
-    //So rst can be completely random after that.
-    #100  rst = 1;
-    #3704 rst = 0;
-    #56   rst = 1;
-    #6000 rst = 0;
-    #250  rst = 1;
+    //rst can be completely random after that.
+    forever begin
+      if(rst) clk_rst_duration = $urandom_range(50,100);
+      else    clk_rst_duration = $urandom_range(2,10);
+
+      #(clk_rst_duration*CLK_PERIOD);
+      if(rst_probability < 3) rst = !rst;
+      rst_probability = $urandom_range(0,10);
+    end
   end
 
   always #(CLK_PERIOD/2) clk = !clk;
