@@ -19,6 +19,7 @@ TEST = ${BLOCK}_test
 VERBOSITY = UVM_MEDIUM
 CYCLES = 1234
 RUN_ARGS_COMMON = -64bit -uvm -access +r -input ${VERIF_SCRIPTS}/shm.tcl \
+      -xmlibdirname xcelium.d -xmlibdirpath . \
       +uvm_set_config_int=*,recording_detail,1 -clean
 COV_ARGS = -coverage all -covoverwrite
 XCELIUM_HOME = xrun
