@@ -16,16 +16,6 @@ class calculator_driver extends uvm_driver #(calculator_seq_item);
         end
     endfunction
 
-    virtual task reset_phase(uvm_phase phase);
-        phase.raise_objection(this);
-        wait(vif_driver.rst_n === 0);
-        vif_driver.dat_a_in    <= '0;
-        vif_driver.dat_b_in    <= '0;
-        vif_driver.function_in <= '0;
-        @(posedge vif_driver.rst_n);
-        phase.drop_objection(this);
-    endtask
-
     virtual task main_phase(uvm_phase phase);
         super.main_phase(phase);
 
