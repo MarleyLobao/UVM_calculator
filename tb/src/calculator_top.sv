@@ -16,12 +16,12 @@ module calculator_top;
 
     //rst can be completely random after that.
     forever begin
-      if(rst) clk_rst_duration = $urandom_range(50,100);
-      else    clk_rst_duration = $urandom_range(2,10);
+      if(rst) clk_rst_duration = $urandom_range(min_clk_duration_out_rst, max_clk_duration_out_rst);
+      else    clk_rst_duration = $urandom_range(min_clk_duration_in_rst, max_clk_duration_in_rst);
 
       #(clk_rst_duration*CLK_PERIOD);
-      if(rst_probability < 3) rst = !rst;
-      rst_probability = $urandom_range(0,10);
+      if(rst_probability < change_rst_percentage) rst = !rst;
+      rst_probability = $urandom_range(0,100);
     end
   end
 

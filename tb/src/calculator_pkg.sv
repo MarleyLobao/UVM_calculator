@@ -6,6 +6,12 @@ package calculator_pkg;
   parameter CLK_PERIOD     = 20;
   parameter LATENCY_BLOCK  = 2;
 
+  parameter int min_clk_duration_in_rst  = 2;
+  parameter int max_clk_duration_in_rst  = 10;
+  parameter int min_clk_duration_out_rst = 50;
+  parameter int max_clk_duration_out_rst = 100;
+  parameter int change_rst_percentage    = 30;
+
   `include "uvm_macros.svh"
 
   `include "./calculator_seq_item.sv"
